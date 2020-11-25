@@ -173,7 +173,12 @@ function signup(){
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
   .then((user) => {
-    console.log(user.uid)
+      let uid = user.user.uid
+    console.log(uid)
+    obj.uid = uid
+    firebase.database().ref("/").child(`user/${uid}/`).set(obj)
+    windows.location.href = '../main.html'
+
   })
   .catch((error) => {
     var errorCode = error.code;
